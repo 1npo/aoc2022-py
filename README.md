@@ -10,7 +10,9 @@
 
 ## Show solutions
 
-#### For all days
+Each puzzle has two solutions: One written in pure Python, and the other using Pandas dataframes. The pure Python solution will run by default. To run the Pandas dataframe solution, add the `--pandas` flag (or `-p` for short) to the following commands:
+
+#### Show solutions for all days
 
 Use the `--all` flag (or `-a` for short), eg:
 
@@ -24,7 +26,7 @@ Use the `--all` flag (or `-a` for short), eg:
 ...
 ```
 
-#### For a given day
+#### Show solutions for a given day
 
 Use the `--day` flag (or `-d` for short), and provide a day number (1-31), eg:
 
