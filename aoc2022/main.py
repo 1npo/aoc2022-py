@@ -9,6 +9,7 @@ from aoc2022 import days
 day_numbers = [i for i in range(1, int(datetime.now().strftime("%d")) + 1)]
 input_files = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'days/inputs')
 
+
 def main():
     # Get parameters from user
     parser = argparse.ArgumentParser(description='Advent of Code 2022')
@@ -27,8 +28,9 @@ def main():
         print('[-] ERROR: Please choose either "all" or "days", not both!')
 
     elif args.all:
+        print('[!] Solving the puzzle for all days.')
         for day, mod_name in modules.items():
-            print(f'[!] Solving the puzzle for December {day}...')
+            print(f'[!] December {day}...')
             mod = import_module(f'aoc2022.days.{mod_name}')
             mod.solve(os.path.join(input_files, f'day{day}.txt'))
     
@@ -36,6 +38,7 @@ def main():
         print(f'[!] Solving the puzzle for December {args.day}...')
         mod = import_module(f'aoc2022.days.day{args.day}')
         mod.solve(os.path.join(input_files, f'day{args.day}.txt'))
+
 
 if __name__ == '__main__':
     main()
