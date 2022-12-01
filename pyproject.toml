@@ -1,0 +1,17 @@
+[build-system]
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'aoc2022'
+version = '1.0.0'
+
+[tool.setuptools.packages.find]
+where = ['.']
+include = ['*']
+exclude = ['']
+namespaces = true
+
+[project.scripts]
+aoc2022 = 'aoc2022.main:main'
+
