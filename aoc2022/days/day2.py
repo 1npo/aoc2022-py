@@ -34,11 +34,28 @@ part2_outcomes = {
 }
 
 
+# Determine the winner using bitwise operations.
+#
+# Player 1 (opponent)   = 1
+# Player 2 (you)        = 0
+# Rock                  = 00 (integer 0)
+# Paper                 = 01 (integer 1)
+# Scissors              = 10 (integer 2)
+#
+# 1. If Player 1 and Player 2 make the same choice, the game is a draw.
+#   - Return without bit operations.
+#   - Otherwise continue.
+# 2. Get binary representation of Player 1 by returning 1 shifted 2 bits to the left (100)
+# 3. Get binary representation of Player 2 by returning 0 shifted 2 bits to the left (000)
+# 4. Use an OR operation to combine the player's representation and their choice of RPS
+# 5. Subtract the Player 2 combination from the Player 1 combination
+# 6. If the difference is a multiple of 3, you win.
+# 7. Otheriwse, your opponent wins.
 def get_round_score(opponent: str, you: str):
     if opponent == you:
         return 3 + shape_scores[you]
     
-    if (((opponent | 1 << (2)) - (you | 0 << (2))) % 3):
+    if (((opponent | 1 << 2) - (you | 0 << 2)) % 3):
         return 0 + shape_scores[you]
     
     return 6 + shape_scores[you]
