@@ -6,7 +6,7 @@ from datetime import datetime
 from aoc2022 import days
 
 
-day_numbers = [i for i in range(1, int(datetime.now().strftime("%d")) + 1)]
+day_numbers = [i for i in range(1, int(datetime.now().strftime("%d")) + 1) if i <= 31]
 input_files = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'days/inputs')
 
 
