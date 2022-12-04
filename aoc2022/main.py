@@ -1,17 +1,37 @@
 import os
 import argparse
+import requests
 from importlib import import_module
 from pkgutil import iter_modules
 from datetime import datetime
 from aoc2022 import days
 
 
-day_numbers = [i for i in range(1, int(datetime.now().strftime("%d")) + 1) if i <= 31]
+AOC_YEAR = 2022
+day_numbers = [i for i in range(1, int(datetime.now().strftime("%d")) + 1) if i <= 25]
 input_files = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'days/inputs')
 
 
+def get_input(year: str, day: str):
+    url = f'https://adventofcode.com/{year}/day/{day}/input'
+    cookie = os.environ['AOC_SESSION_COOKIE']
+    headers = {
+        'User-Agent': 'Nick <http://github.com/1npo/aoc2022>',
+        'cookie': f'session={cookie}' }
+    output_file = os.path.join(input_files, f'day{day}.txt')
+
+    with open(output_file, 'w') as f:
+        f.write(requests.get(url, headers=headers).text)
+    
+    print(f'[!] Downloaded your input for day {day}')
+
+
 def run_solver(day: int, mod_path: str):
-    print(f'[!] December {day}...')
+    if not os.path.exists(f'{input_files}/day{day}.txt'):
+        print(f'[!] Input for day {day} wasn\'t found. Downloading...')
+        get_input(AOC_YEAR, day)
+
+    print(f'[!] Solving the puzzle for December {day}...')
     mod = import_module(mod_path)
     mod.solve(os.path.join(input_files, f'day{day}.txt'))
 
@@ -22,6 +42,8 @@ def main():
     parser.add_argument('-a', '--all', action='store_true')
     parser.add_argument('-d', '--day', action='store', type=int)
     parser.add_argument('-p', '--pandas', action='store_true')
+    parser.add_argument('-t', '--test', action='store_true')
+
     args, _ = parser.parse_known_args()
 
     # Build an index of each day and its associated modules
@@ -54,12 +76,19 @@ def main():
 
     # Solve the puzzle for a given day
     elif args.day:
-        print(f'[!] Solving the puzzle for December {args.day}...')
+        if int(args.day) not in day_numbers:
+            print(f'[-] Can\'t sole the puzzle for this day. Wait until December {day}!')
+            exit(1)
+
         if args.pandas:
             run_solver(args.day, f'aoc2022.days.day{args.day}_pd')
         else:
             run_solver(args.day, f'aoc2022.days.day{args.day}')
-        
+    
+    if args.test:
+        print(f'[?] DEBUG: {day_numbers=}')
+        print(f'[?] DEBUG: {input_files=}')
+
 
 if __name__ == '__main__':
     main()
