@@ -1,5 +1,5 @@
 import re
-from anytree import AnyNode, RenderTree, Resolver, PreOrderIter, PostOrderIter 
+from anytree import AnyNode, RenderTree, Resolver, PostOrderIter 
 from anytree.resolver import ChildResolverError
 
 
@@ -86,7 +86,6 @@ def solve(filepath: str):
         build_fs_tree(fs_tree, content)
 
         part1_sum = 0
-        part2_size = 0
 
         # First pass - sum all the child files
         dirs_summed = []
