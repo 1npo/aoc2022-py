@@ -64,10 +64,7 @@ def prod_scenic_score(grid: list):
 def solve(filepath: str):
     with open(filepath, 'r') as f:
         content = [line.strip() for line in f]
-
-        grid = []
-        for line in content:            
-            grid.append(list(map(int, [*line])))
+        grid = [list(map(int, [*line])) for line in content]
         
         """
         grid = [[3,0,3,7,3],
