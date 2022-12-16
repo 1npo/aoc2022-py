@@ -1,12 +1,5 @@
 import re
-from loguru import logger
 from math import prod
-
-LOG_FILE='/tmp/aoc-day11.log'
-LOG_FMT='<green>[{function: <17}]</green> {message}'
-logger.remove()
-logger.add(LOG_FILE, format=LOG_FMT, level='DEBUG')
-
 
 # This is the real monkey business right here
 MONKEY_P = re.compile('^Monkey (\d):')
